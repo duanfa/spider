@@ -40,15 +40,14 @@ public class UrlSaveDemon implements Runnable {
 		try {
 			usedFos = new FileOutputStream(Constant.usedUrlFilePath,true);
 			usedBw = new BufferedWriter(new OutputStreamWriter(usedFos));
-			illegalFos = new FileOutputStream(Constant.usedUrlFilePath,true);
+			illegalFos = new FileOutputStream(Constant.illegalUrlFilePath,true);
 			illegalBw = new BufferedWriter(new OutputStreamWriter(illegalFos));
-		} catch (FileNotFoundException e3) {
+		} catch (Exception e3) {
 			e3.printStackTrace();
 		}
 		while(true){
 			try {
-				Thread.currentThread();
-				Thread.sleep(100000);
+				Thread.currentThread().sleep(100000);
 				Set<String> usedUrls_tmp = usedUrls;
 				usedUrls = new HashSet<String>();
 				usedUrls = Collections.synchronizedSet(usedUrls);
@@ -63,6 +62,8 @@ public class UrlSaveDemon implements Runnable {
 					illegalBw.newLine();
 					illegalBw.write(url);
 				}
+				usedBw.flush();
+				illegalBw.flush();
 			} catch (Exception e) {
 				e.printStackTrace();
 				try {
@@ -70,7 +71,7 @@ public class UrlSaveDemon implements Runnable {
 					illegalBw.close();
 					usedFos = new FileOutputStream(Constant.usedUrlFilePath,true);
 					usedBw = new BufferedWriter(new OutputStreamWriter(usedFos));
-					illegalFos = new FileOutputStream(Constant.usedUrlFilePath,true);
+					illegalFos = new FileOutputStream(Constant.illegalUrlFilePath,true);
 					illegalBw = new BufferedWriter(new OutputStreamWriter(illegalFos));
 				} catch (Exception e1) {
 					e1.printStackTrace();

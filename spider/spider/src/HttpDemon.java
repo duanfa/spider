@@ -47,7 +47,8 @@ public class HttpDemon implements Runnable {
 		String name = "";
 		try {
 			html =  Jsoup.connect(url).userAgent("Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:28.0) Gecko/20100101 Firefox/28.0").header("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8").header("Accept-Language", "zh-cn")
-			.header("Cookie","bid=\"NmOUYwtrguc\"; viewed=\"2299730_4817792_1402410_4753298_25709562_4141733_1761909_1402576\"; __utma=30149280.871955665.1378794346.1396488248.1396493179.40; __utmz=30149280.1396415046.37.5.utmcsr=douban.com|utmccn=(referral)|utmcmd=referral|utmcct=/; ll=\"108288\"; __utmv=30149280.429; __utmc=30149280; dbcl2=\"4293463:kAydnRA4Mps\"; ck=\"NMsQ\"; push_noty_num=0; push_doumail_num=0; __utmb=30149280.20.10.1396493179; ct=y, value").execute().body();
+			//.header("Cookie","bid=\"NmOUYwtrguc\"; viewed=\"2299730_4817792_1402410_4753298_25709562_4141733_1761909_1402576\"; __utma=30149280.871955665.1378794346.1396488248.1396493179.40; __utmz=30149280.1396415046.37.5.utmcsr=douban.com|utmccn=(referral)|utmcmd=referral|utmcct=/; ll=\"108288\"; __utmv=30149280.429; __utmc=30149280; dbcl2=\"4293463:kAydnRA4Mps\"; ck=\"NMsQ\"; push_noty_num=0; push_doumail_num=0; __utmb=30149280.20.10.1396493179; ct=y, value").execute().body();
+			.header("Cookie","bid=\"mGHbje1iOus\"; ll=\"108288\"").execute().body();
 			int last = url.lastIndexOf("/");
 			path = "/douban/"+sdf_m.format(new Date())+url.substring(6, last);
 			name = url.substring(last + 1);
@@ -72,6 +73,7 @@ public class HttpDemon implements Runnable {
 			}else{
 				e.printStackTrace();
 				System.out.println("illegeal url:" + url);
+				UrlSaveDemon.illegalUrls.add(url);
 				queue.add(url);
 			}
 		}
@@ -131,8 +133,8 @@ public class HttpDemon implements Runnable {
 		while (true) {
 			String u = queue.poll();
 			try {
-				System.out.println(Thread.currentThread().getId()+" sleep 1000");
-				Thread.sleep(1000);
+				System.out.println(Thread.currentThread().getId()+" sleep 3000");
+				Thread.sleep(3000);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
