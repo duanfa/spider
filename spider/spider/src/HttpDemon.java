@@ -38,7 +38,7 @@ public class HttpDemon implements Runnable {
 	}
 
 	public static String fetchHtml(String url) {
-		if (url == null || UrlSaveDemon.usedUrls.contains(url)) {
+		if (url == null || UrlSaveDemon.downloadUrls.contains(url)) {
 			System.out.println("has been read url:" + url);
 			return null;
 		}
@@ -66,6 +66,7 @@ public class HttpDemon implements Runnable {
 			bw.write(html);
 			bw.close();
 			UrlSaveDemon.usedUrls.add(url);
+			UrlSaveDemon.downloadUrls.add(url);
 			System.out.println("success get url:" + url);
 		} catch (Exception e) {
 			if(e instanceof SocketTimeoutException){

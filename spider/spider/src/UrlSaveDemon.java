@@ -14,16 +14,17 @@ import java.util.Set;
 
 public class UrlSaveDemon implements Runnable {
 	
+	static Set<String> downloadUrls = new HashSet<String>();
 	static Set<String> usedUrls = new HashSet<String>();
 	static Set<String> illegalUrls = new HashSet<String>();
 	static{
-		usedUrls = Collections.synchronizedSet(usedUrls);
+		downloadUrls = Collections.synchronizedSet(downloadUrls);
 		try {
-			FileInputStream fis = new FileInputStream(Constant.usedUrlFilePath);
+			FileInputStream fis = new FileInputStream(Constant.downloadUrlFilePath);
 			BufferedReader br = new BufferedReader(new InputStreamReader(fis));
 			String url = "";
 			while((url=br.readLine())!=null){
-				usedUrls.add(url);
+				downloadUrls.add(url);
 			}
 			br.close();
 		} catch (Exception e) {
@@ -33,13 +34,13 @@ public class UrlSaveDemon implements Runnable {
 	
 	@Override
 	public void run() {
-		FileOutputStream usedFos = null;
-		BufferedWriter usedBw = null;
+		FileOutputStream downloadFos = null;
+		BufferedWriter downloadBw = null;
 		FileOutputStream illegalFos = null;
 		BufferedWriter illegalBw = null;
 		try {
-			usedFos = new FileOutputStream(Constant.usedUrlFilePath,true);
-			usedBw = new BufferedWriter(new OutputStreamWriter(usedFos));
+			downloadFos = new FileOutputStream(Constant.downloadUrlFilePath,true);
+			downloadBw = new BufferedWriter(new OutputStreamWriter(downloadFos));
 			illegalFos = new FileOutputStream(Constant.illegalUrlFilePath,true);
 			illegalBw = new BufferedWriter(new OutputStreamWriter(illegalFos));
 		} catch (Exception e3) {
@@ -55,22 +56,22 @@ public class UrlSaveDemon implements Runnable {
 				illegalUrls = new HashSet<String>();
 				illegalUrls = Collections.synchronizedSet(illegalUrls);
 				for(String url:usedUrls_tmp){
-					usedBw.newLine();
-					usedBw.write(url);
+					downloadBw.newLine();
+					downloadBw.write(url);
 				}
 				for(String url:illegalUrls_tmp){
 					illegalBw.newLine();
 					illegalBw.write(url);
 				}
-				usedBw.flush();
+				downloadBw.flush();
 				illegalBw.flush();
 			} catch (Exception e) {
 				e.printStackTrace();
 				try {
-					usedBw.close();
+					downloadBw.close();
 					illegalBw.close();
-					usedFos = new FileOutputStream(Constant.usedUrlFilePath,true);
-					usedBw = new BufferedWriter(new OutputStreamWriter(usedFos));
+					downloadFos = new FileOutputStream(Constant.downloadUrlFilePath,true);
+					downloadBw = new BufferedWriter(new OutputStreamWriter(downloadFos));
 					illegalFos = new FileOutputStream(Constant.illegalUrlFilePath,true);
 					illegalBw = new BufferedWriter(new OutputStreamWriter(illegalFos));
 				} catch (Exception e1) {
