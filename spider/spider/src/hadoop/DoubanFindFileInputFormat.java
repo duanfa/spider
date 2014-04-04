@@ -62,11 +62,13 @@ public class DoubanFindFileInputFormat extends InputFormat<Text, Text> {
 	static class DoubanRecordReader extends RecordReader<Text, Text> {
 		Text filePath;
 		TaskAttemptContext context;
+		boolean isread = false;
 
 		public DoubanRecordReader() {
 		}
 
 		public void initialize(InputSplit split, TaskAttemptContext context) throws IOException, InterruptedException {
+			System.out.println("split:"+((DoubanInputSplit) split).path);
 			filePath = new Text(((DoubanInputSplit) split).path);
 			this.context = context;
 		}
@@ -92,6 +94,7 @@ public class DoubanFindFileInputFormat extends InputFormat<Text, Text> {
 					sb.append(line + "\n");
 				}
 				text.set(sb.toString());
+				isread = true;
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -104,7 +107,7 @@ public class DoubanFindFileInputFormat extends InputFormat<Text, Text> {
 		}
 
 		public boolean nextKeyValue() {
-			return false;
+			return !isread;
 		}
 
 	}
