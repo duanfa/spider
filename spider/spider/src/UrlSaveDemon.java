@@ -26,6 +26,7 @@ public class UrlSaveDemon implements Runnable {
 			while((url=br.readLine())!=null){
 				downloadUrls.add(url);
 			}
+			System.out.println("downloadUrls size:"+downloadUrls.size());
 			br.close();
 		} catch (Exception e) {
 			e.printStackTrace();

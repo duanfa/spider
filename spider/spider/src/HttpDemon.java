@@ -125,8 +125,7 @@ public class HttpDemon implements Runnable {
 
 	@Override
 	public void run() {
-		String url = "http://movie.douban.com/subject/21941804/?from=showing";
-		url = "http://movie.douban.com/";
+		String url = "http://movie.douban.com/review/6591315/";
 		String html = fetchHtml(url);
 		Set<String> urls = findHref(html);
 		urls = authHref(urls);
