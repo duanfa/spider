@@ -3,14 +3,14 @@ package parser.bean;
 import java.util.List;
 
 
-public class Movie {
-	public enum MovieType{
-		MOVIE,TV
-	}
+public class DouList {
 	private String id;
 	private String name;
-	private String img;
-	private String url;
+	
+	private String creater;
+	
+	private int up;
+	private int follower;
 	private List<String> relativeMovies;
 	private List<String> relativeDouList;
 	private List<String> relativeGroup;
