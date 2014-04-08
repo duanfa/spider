@@ -9,12 +9,12 @@ import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 
-public class DoubanHadoop {
+public class DoubanHadoopMain {
 
 	public static void main(String[] args) throws Exception {
 		Configuration conf = new Configuration();
 		Job job = new Job(conf, "douban");
-		job.setJarByClass(DoubanHadoop.class);
+		job.setJarByClass(DoubanHadoopMain.class);
 		job.setInputFormatClass(DoubanFindFileInputFormat.class);
 		job.setMapperClass(DoubanMapper.class);
 		job.setCombinerClass(DoubanReducer.class);
