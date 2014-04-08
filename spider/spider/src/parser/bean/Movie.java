@@ -1,23 +1,37 @@
 package parser.bean;
 
-import java.io.File;
+import java.util.List;
 
-import org.dom4j.Document;
-import org.dom4j.DocumentException;
-import org.dom4j.io.SAXReader;
 
 public class Movie {
-///home/duanfa/Desktop/tmp/201404081205/movie.douban.com/subject/1761848/1396929955845.html
-	
-	public static void main(String[] args) {
-		String path = "/home/duanfa/Desktop/tmp/201404081205/movie.douban.com/subject/1761848/1396929955845.html";
-		Document document = null;
-		try {
-			SAXReader saxReader = new SAXReader();
-			document = saxReader.read(new File(path));  
-		} catch (DocumentException e) {
-			e.printStackTrace();
-		}
-		System.out.println(document.toString());
+	public enum MovieType{
+		MOVIE,TV
 	}
+	private String id;
+	private String name;
+	private String img;
+	private List<String> relativeMovies;
+	private List<String> tags;
+	
+	private List<String> alies;
+	private List<String> directors;
+	private List<String> writers; 
+	private List<String> actors;
+	 
+	private List<String> language;
+	private List<String> showTime;
+	private List<String> category;
+	
+	private  String produceCounty;
+	private  String IMDb;
+	private String detail;
+	private  int timLong;
+	private int startAll;
+	private int start1;	
+	private int start2;
+	private int start3;
+	private int start4;
+	private int start5;
+	
+	private float startValue;
 }
