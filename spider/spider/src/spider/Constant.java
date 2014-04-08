@@ -1,4 +1,4 @@
-
+package spider;
 
 public class Constant {
 	public static String downloadUrlFilePath = "/douban/usedUrl";

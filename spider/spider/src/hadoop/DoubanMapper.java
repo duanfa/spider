@@ -5,6 +5,9 @@ import java.io.IOException;
 import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Mapper;
+import org.dom4j.Document;
+import org.dom4j.DocumentException;
+import org.dom4j.DocumentHelper;
 
 public class DoubanMapper extends Mapper<Text, Text, Text, IntWritable> {
 
@@ -12,7 +15,12 @@ public class DoubanMapper extends Mapper<Text, Text, Text, IntWritable> {
 	private Text word = new Text();
 
 	public void map(Text key, Text value, Context context) throws IOException, InterruptedException {
-		System.out.println(key+":"+value);
-		//context.write(word, one);
+		Document document;
+		try {
+			document = DocumentHelper.parseText(value.toString());
+		} catch (DocumentException e) {
+			e.printStackTrace();
+		}
+		//document.getRootElement().elements();
 	}
 }
