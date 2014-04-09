@@ -11,6 +11,10 @@ public class MovieParser {
 ///home/duanfa/Desktop/tmp/201404081205/movie.douban.com/subject/1761848/1396929955845.html
 	public static void main(String[] args) throws IOException {
 		String path = "/home/duanfa/Desktop/tmp/201404081205/movie.douban.com/subject/1761848/1396929955845.html";
+		parseMovie(path);
+	}
+
+	public static void parseMovie(String path) throws IOException {
 		File input = new File(path);
 		Document doc = Jsoup.parse(input, "UTF-8");
 		for(Element e:doc.getElementsByAttributeValue("property", "v:itemreviewed")){
