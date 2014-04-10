@@ -7,6 +7,7 @@ public class Review {
 		LONG, SHORT
 	}
 
+	private ReviewType type;
 	private String id;
 	private String movieId;
 	private String userId;
@@ -18,6 +19,15 @@ public class Review {
 	private int unUseful;
 	private int start;
 	private int replyNum;
+
+	
+	public ReviewType getType() {
+		return type;
+	}
+
+	public void setType(ReviewType type) {
+		this.type = type;
+	}
 
 	public int getStart() {
 		return start;
