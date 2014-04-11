@@ -1,6 +1,8 @@
 package parser.bean;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class Review {
 	public enum ReviewType {
@@ -19,8 +21,18 @@ public class Review {
 	private int unUseful;
 	private int start;
 	private int replyNum;
+	
+	private List<Reply> replys = new ArrayList<Reply>();
 
 	
+	public List<Reply> getReplys() {
+		return replys;
+	}
+
+	public void setReplys(List<Reply> replys) {
+		this.replys = replys;
+	}
+
 	public ReviewType getType() {
 		return type;
 	}

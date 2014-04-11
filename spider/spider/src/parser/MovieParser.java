@@ -20,13 +20,12 @@ import spider.Constant;
 public class MovieParser {
 	// /home/duanfa/Desktop/tmp/201404081205/movie.douban.com/subject/1761848/1396929955845.html
 	public static void main(String[] args) throws IOException {
-		// String path =
-		// "/douban/douban_bak/201404040927/movie.douban.com/subject/10833923/1396574878343.html";
-		String path = "D:/douban/201404092202/movie.douban.com/subject/4860078/1397052125619.html";
+		 String path = "/douban/douban_bak/201404040927/movie.douban.com/subject/10833923/1396574878343.html";
+		//String path = "D:/douban/201404092202/movie.douban.com/subject/4860078/1397052125619.html";
 		parseMovie(path);
 	}
 
-	public static void parseMovie(String path) throws IOException {
+	public static Movie parseMovie(String path) throws IOException {
 		Movie movie = new Movie();
 		File input = new File(path);
 		Document doc = Jsoup.parse(input, "UTF-8");
@@ -77,7 +76,42 @@ public class MovieParser {
 				tags.add(t.text());
 			}
 		}
-		movie.setTags(tags);
+		Set<String> doulist = new HashSet<String>();
+		for (Element e : doc.getElementsByAttributeValue("id",
+				"subject-doulist")) {
+			for (Element t : e.getElementsByTag("li")) {
+				for (Element v : t.getElementsByTag("a")) {
+					int i = 0;
+					String[] urls = v.attr("href").split("/");
+					for (String s : urls) {
+						if ("doulist".equals(urls[i++])) {
+						//	System.out.println(urls[i]);
+							doulist.add(urls[i]);
+							break;
+						}
+					}
+				}
+			}
+		}
+		movie.setRelativeDouList(doulist);
+		Set<String> group = new HashSet<String>();
+		for (Element e : doc.getElementsByAttributeValue("class",
+				"related-group-content")) {
+				for (Element v : e.getElementsByTag("a")) {
+					int i = 0;
+					String[] urls = v.attr("href").split("/");
+					for (String s : urls) {
+						if ("group".equals(urls[i++])) {
+							//System.out.println(urls[i]);
+							group.add(urls[i]);
+							break;
+						}
+					}
+				}
+		}
+		movie.setRelativeGroup(group);
+		
+		
 		List<Review> short_reviews = new ArrayList<Review>();
 		for (Element e : doc.getElementsByAttributeValue("class",
 				"comment-item")) {
@@ -198,6 +232,8 @@ public class MovieParser {
 			}
 		}
 		movie.setRelativeMovies(relativeMovies);
+		
+		return movie;
 	}
 
 }
