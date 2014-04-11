@@ -43,8 +43,22 @@ public class HttpDemon implements Runnable {
 	public static String fetchHtml(String url) {
 		if (url == null || UrlSaveDemon.downloadUrls.contains(url)) {
 			System.out.println("has been read url:" + url);
+			try {
+				System.out.println(Thread.currentThread().getId()+" sleep 10");
+				Thread.sleep(10);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
 			return null;
+		}else{
+			try {
+				System.out.println(Thread.currentThread().getId()+" sleep 3000");
+				Thread.sleep(3000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
 		}
+		
 		String html = "";
 		String path = "";
 		String name = "";
@@ -135,12 +149,7 @@ public class HttpDemon implements Runnable {
 		queue.addAll(urls);
 		while (true) {
 			String u = queue.poll();
-			try {
-				System.out.println(Thread.currentThread().getId()+" sleep 3000");
-				Thread.sleep(3000);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
+			
 			if(u==null){
 				continue;
 			}
