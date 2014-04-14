@@ -3,16 +3,14 @@ package parser;
 import java.io.File;
 import java.io.IOException;
 import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
-import parser.bean.Reply;
-import parser.bean.Review;
-import parser.bean.User;
+import parser.bean.SeenMovie;
 import spider.Constant;
 
 public class UserSeenMovieParser {
@@ -21,9 +19,10 @@ public class UserSeenMovieParser {
 		parseUserSeenMovieParser(path);
 	}
 
-	public static User parseUserSeenMovieParser(String path) throws IOException {
-		User user = new User();
-		Review review = new Review();
+	public static Set<SeenMovie> parseUserSeenMovieParser(String path) throws IOException {
+		Set<SeenMovie> seenMovies = new HashSet<SeenMovie>();
+
+		String userId = "";
 		File input = new File(path);
 		Document doc = Jsoup.parse(input, "UTF-8");
 
@@ -33,8 +32,8 @@ public class UserSeenMovieParser {
 				String[] urls = a.attr("href").split("/");
 				for (String s : urls) {
 					if ("people".equals(urls[i++])) {
-						//System.out.println(urls[i]);
-						user.setId(urls[i]);
+						// System.out.println(urls[i]);
+						userId = urls[i];
 						break;
 					}
 				}
@@ -42,82 +41,33 @@ public class UserSeenMovieParser {
 			}
 		}
 		for (Element e : doc.getElementsByAttributeValue("class", "info")) {
+			SeenMovie movie = new SeenMovie();
+			movie.setUserId(userId);
+			for (Element r : e.getElementsByAttributeValue("class", "date")) {
+//				System.out.println(r.text());
+				try {
+					movie.setDate(Constant.day_sdf.parse(r.text()));
+				} catch (ParseException e1) {
+					e1.printStackTrace();
+				}
+			}
 			for (Element r : e.getElementsByAttributeValue("class", "title")) {
-				System.out.println("v:summary:"+e.text());
-			}
-		}
-		for (Element e : doc.getElementsByAttributeValue("property", "v:description")) {
-			// System.out.println("v:description:"+e.text());
-			review.setDetail(e.text());
-		}
-		for (Element e : doc.getElementsByAttributeValue("property", "v:dtreviewed")) {
-			// System.out.println("v:dtreviewed:"+e.text());
-			try {
-				review.setDate(Constant.time_sdf.parse(e.text()));
-			} catch (ParseException e1) {
-				e1.printStackTrace();
-			}
-		}
-		for (Element e : doc.getElementsByAttributeValue("property", "v:reviewer")) {
-			int i = 0;
-			String[] urls = e.parent().attr("href").split("/");
-			for (String s : urls) {
-				if ("people".equals(urls[i++])) {
-					// System.out.println(urls[i]);
-					review.setUserId(urls[i]);
-					break;
-				}
-			}
-
-			String[] starValus = e.parent().nextElementSibling().attr("class").split(" ");
-			review.setStart(Integer.parseInt(starValus[0].substring(7)));
-			// System.out.println(review.getStart());
-		}
-		for (Element e : doc.getElementsByAttributeValue("class", "btn-useful j a_show_login")) {
-			review.setUseful(Integer.parseInt(e.nextElementSibling().text()));
-			//System.out.println("useful:" + review.getUseful());
-		}
-		for (Element e : doc.getElementsByAttributeValue("class", "btn-unuseful j a_show_login")) {
-			review.setUnUseful(Integer.parseInt(e.nextElementSibling().text()));
-			//System.out.println("unUseful:" + review.getUnUseful());
-		}
-
-		List<Reply> replys = new ArrayList<Reply>();
-
-		for (Element e : doc.getElementsByAttributeValue("class", "content report-comment")) {
-			Reply reply = new Reply();
-			for (Element a : e.getElementsByAttributeValue("class", "author")) {
-				for (Element s : a.getElementsByTag("span")) {
-					//System.out.println(s.text());
-					try {
-						reply.setDate(Constant.time_sdf.parse(s.text()));
-					} catch (ParseException e1) {
-						e1.printStackTrace();
-					}
-				}
-				for (Element s : a.getElementsByTag("a")) {
-					//System.out.println(s.attr("href"));
+				for (Element t : r.getElementsByTag("a")) {
 					int i = 0;
-					String[] urls = s.attr("href").split("/");
-					for (String k : urls) {
-						if ("people".equals(urls[i++])) {
-							//System.out.println(urls[i]);
-							reply.setUserId(urls[i]);
+					String[] urls = t.attr("href").split("/");
+					for (String s : urls) {
+						if ("subject".equals(urls[i++])) {
+							System.out.println(urls[i]);
+							movie.setMovieId(urls[i]);
 							break;
 						}
 					}
 				}
-			}
-			for (Element p : e.getElementsByTag("p")) {
-				reply.setDetail(p.text());
-				//System.out.println(p.text());
-			}
-			replys.add(reply);
-//			System.out.println("comments:"+e.text());
-		}
-		review.setReplys(replys);
 
-		return user;
+			}
+		}
+
+		return seenMovies;
 	}
 
 }

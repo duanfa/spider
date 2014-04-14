@@ -161,8 +161,8 @@ public class MovieParser {
 		}
 		movie.setShortReviews(short_reviews);
 
-		List<Review> reviews = new ArrayList<Review>();
-		for (Element e : doc.getElementsByAttributeValue("class", "review")) {
+		Set<String> reviews = new HashSet<String>();
+		/*for (Element e : doc.getElementsByAttributeValue("class", "review")) {
 			Review review = new Review();
 			boolean istitle = false;
 			for (Element title : e.getElementsByAttributeValue("onclick",
@@ -212,6 +212,17 @@ public class MovieParser {
 					// System.out.println("date:"+review.getDate());
 				} catch (ParseException e1) {
 					e1.printStackTrace();
+				}
+			}
+		}*/
+		for (Element e : doc.getElementsByAttributeValue("class", "review")) {
+			for (Element replyeNum : e.getElementsByAttributeValue("class",
+					"review-bd")) {
+				for (Element no : replyeNum.getElementsByAttributeValue(
+						"onclick", "moreurl(this, {from: 'review-hottest'})")) {
+					String[] url = no.attr("href").split("/");
+					reviews.add(url[url.length - 1]);
+					break;
 				}
 			}
 		}

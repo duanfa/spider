@@ -26,7 +26,7 @@ public class Movie {
 	private List<String> language;
 	private List<String> showTime;
 	private List<String> category;
-	private List<Review> reviews;
+	private Set<String> reviews;
 	private List<Review> shortReviews;
 	
 	private  String produceCounty;
@@ -142,11 +142,12 @@ public class Movie {
 		this.category = category;
 	}
 
-	public List<Review> getReviews() {
+
+	public Set<String> getReviews() {
 		return reviews;
 	}
 
-	public void setReviews(List<Review> reviews) {
+	public void setReviews(Set<String> reviews) {
 		this.reviews = reviews;
 	}
 

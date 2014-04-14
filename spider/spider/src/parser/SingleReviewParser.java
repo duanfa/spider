@@ -14,7 +14,7 @@ import parser.bean.Reply;
 import parser.bean.Review;
 import spider.Constant;
 
-public class ReviewParser {
+public class SingleReviewParser {
 	public static void main(String[] args) throws IOException {
 		String path = "/home/duanfa/Desktop/tmp/1396554496441.html";
 		parseReview(path);
