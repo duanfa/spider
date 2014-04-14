@@ -16,15 +16,15 @@ import spider.Constant;
 public class UserSeenMovieParser {
 	public static void main(String[] args) throws IOException {
 		String path = "/home/duanfa/Desktop/tmp/wish.html";
-		parseUserSeenMovieParser(path);
+		File input = new File(path);
+		Document doc = Jsoup.parse(input, "UTF-8");
+		parseUserSeenMovieParser(doc);
 	}
 
-	public static Set<SeenMovie> parseUserSeenMovieParser(String path) throws IOException {
+	public static Set<SeenMovie> parseUserSeenMovieParser(Document doc) throws IOException {
 		Set<SeenMovie> seenMovies = new HashSet<SeenMovie>();
 
 		String userId = "";
-		File input = new File(path);
-		Document doc = Jsoup.parse(input, "UTF-8");
 
 		for (Element e : doc.getElementsByAttributeValue("class", "mod")) {
 			for (Element a : e.getElementsByTag("a")) {

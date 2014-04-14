@@ -22,13 +22,13 @@ public class MovieParser {
 	public static void main(String[] args) throws IOException {
 		 String path = "/douban/douban_bak/201404040927/movie.douban.com/subject/10833923/1396574878343.html";
 		//String path = "D:/douban/201404092202/movie.douban.com/subject/4860078/1397052125619.html";
-		parseMovie(path);
+		 File input = new File(path);
+		 Document doc = Jsoup.parse(input, "UTF-8");
+		parseMovie(doc);
 	}
 
-	public static Movie parseMovie(String path) throws IOException {
+	public static Movie parseMovie(Document doc) throws IOException {
 		Movie movie = new Movie();
-		File input = new File(path);
-		Document doc = Jsoup.parse(input, "UTF-8");
 		for (Element e : doc.getElementsByAttributeValue("property",
 				"v:itemreviewed")) {
 			// System.out.println("name:"+e.text());

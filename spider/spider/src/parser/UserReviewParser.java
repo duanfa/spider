@@ -14,18 +14,18 @@ import parser.bean.User;
 public class UserReviewParser {
 	public static void main(String[] args) throws IOException {
 		String path = "/home/duanfa/Desktop/tmp/userreview.html";
-		userReviewParser(path);
+		File input = new File(path);
+		Document doc = Jsoup.parse(input, "UTF-8");
+		userReviewParser(doc);
 	}
 
-	public static User userReviewParser(String path) throws IOException {
+	public static User userReviewParser(Document doc) throws IOException {
 		
 		User user = new User();
 		
 		Set<String> reviews =new HashSet<String>();;
 
 		
-		File input = new File(path);
-		Document doc = Jsoup.parse(input, "UTF-8");
 
 		for (Element e : doc.getElementsByAttributeValue("style", "clear:both;")) {
 			for (Element a : e.getElementsByTag("a")) {

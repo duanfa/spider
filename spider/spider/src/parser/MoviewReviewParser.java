@@ -14,18 +14,18 @@ import parser.bean.Movie;
 public class MoviewReviewParser {
 	public static void main(String[] args) throws IOException {
 		String path = "/home/duanfa/Desktop/tmp/moviereview.html";
-		moviewReviewParser(path);
+		File input = new File(path);
+		Document doc = Jsoup.parse(input, "UTF-8");
+		moviewReviewParser(doc);
 	}
 
-	public static Movie moviewReviewParser(String path) throws IOException {
+	public static Movie moviewReviewParser(Document doc) throws IOException {
 
 		Movie movie = new Movie();
 
 		Set<String> reviews = new HashSet<String>();
 		;
 
-		File input = new File(path);
-		Document doc = Jsoup.parse(input, "UTF-8");
 
 		for (Element e : doc.getElementsByAttributeValue("class", "j a_unfolder")) {
 			int i = 0;
