@@ -12,9 +12,9 @@ import org.jsoup.nodes.Element;
 public class HrefParser {
 
 	static Set<String> include = new HashSet<String>();
+	public static Set<String> categorys = new HashSet<String>();
 	static {
 		include.add("http://movie.douban.com/people");
-		include.add("http://movie.douban.com/subject");
 		include.add("http://movie.douban.com/subject");
 		include.add("http://movie.douban.com/review");
 		include.add("http://movie.douban.com/doulist");
@@ -22,6 +22,12 @@ public class HrefParser {
 		include.add("/subject");
 		include.add("/celebrity");
 		// include.add("http://www.douban.com/group");
+		
+		categorys.add("people");
+		categorys.add("subject");
+		categorys.add("review");
+		categorys.add("doulist");
+		categorys.add("celebrity");
 	}
 
 	public static void main(String[] args) throws IOException {
@@ -31,12 +37,12 @@ public class HrefParser {
 		parseHref(doc);
 	}
 
-	public static Set<String> parseHref(Document doc) throws IOException {
+	public static Set<String> parseHref(Document doc){
 		Set<String> hrefs = new HashSet<>();
 		for (Element e : doc.getElementsByTag("a")) {
 			for (String head : include) {
 				if (e.attr("href").indexOf(head)>-1) {
-//					System.out.println(e.attr("href"));
+					//System.out.println(e.attr("href"));
 					hrefs.add(e.attr("href"));
 					break;
 				}
