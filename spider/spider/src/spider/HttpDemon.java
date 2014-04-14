@@ -33,7 +33,7 @@ public class HttpDemon implements Runnable {
 		include.add("http://movie.douban.com/people/annho/collect");
 		include.add("http://movie.douban.com/doulist");
 		include.add("http://movie.douban.com/celebrity");
-		include.add("http://www.douban.com/group");
+		//include.add("http://www.douban.com/group");
 
 		exclude.add("?type=like#");
 		exclude.add("remove_comment");
@@ -142,7 +142,7 @@ public class HttpDemon implements Runnable {
 
 	@Override
 	public void run() {
-		String url = "http://movie.douban.com/subject/3014952/";
+		String url = "http://movie.douban.com/subject/1390020/";
 		String html = fetchHtml(url);
 		Set<String> urls = findHref(html);
 		urls = authHref(urls);
