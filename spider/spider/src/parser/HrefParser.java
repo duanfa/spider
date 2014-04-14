@@ -36,7 +36,7 @@ public class HrefParser {
 		for (Element e : doc.getElementsByTag("a")) {
 			for (String head : include) {
 				if (e.attr("href").indexOf(head)>-1) {
-					System.out.println(e.attr("href"));
+//					System.out.println(e.attr("href"));
 					hrefs.add(e.attr("href"));
 					break;
 				}

@@ -1,10 +1,17 @@
-package parser.bean;
+package hadoop.writeableBean;
 
+import java.io.DataInput;
+import java.io.DataOutput;
+import java.io.IOException;
 import java.util.List;
 import java.util.Set;
 
+import org.apache.hadoop.io.WritableComparable;
 
-public class Movie {
+import parser.bean.Review;
+
+
+public class MovieWriteable implements WritableComparable<MovieWriteable> {
 	public enum MovieType{
 		MOVIE,TV
 	}
@@ -272,6 +279,7 @@ public class Movie {
 		this.startValue = startValue;
 	}
 
+
 	public Set<String> getShortReviews() {
 		return shortReviews;
 	}
@@ -280,4 +288,22 @@ public class Movie {
 		this.shortReviews = shortReviews;
 	}
 
+	@Override
+	public void readFields(DataInput arg0) throws IOException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void write(DataOutput arg0) throws IOException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public int compareTo(MovieWriteable o) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	
 }

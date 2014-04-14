@@ -112,7 +112,7 @@ public class MovieParser {
 		movie.setRelativeGroup(group);
 		
 		
-		List<Review> short_reviews = new ArrayList<Review>();
+/*		List<Review> short_reviews = new ArrayList<Review>();
 		for (Element e : doc.getElementsByAttributeValue("class",
 				"comment-item")) {
 			Review review = new Review();
@@ -157,7 +157,12 @@ public class MovieParser {
 					}
 				}
 			}
-			short_reviews.add(review);
+*/		Set<String> short_reviews = new HashSet<String>();
+		for (Element e : doc.getElementsByAttributeValue("class",
+				"comment-item")) {
+			for (Element title : e.getElementsByTag("input")) {
+				short_reviews.add(title.attr("value"));
+			}
 		}
 		movie.setShortReviews(short_reviews);
 

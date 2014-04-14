@@ -24,7 +24,6 @@ public class MoviewReviewParser {
 		Movie movie = new Movie();
 
 		Set<String> reviews = new HashSet<String>();
-		;
 
 
 		for (Element e : doc.getElementsByAttributeValue("class", "j a_unfolder")) {

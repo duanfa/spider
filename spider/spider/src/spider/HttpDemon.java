@@ -30,9 +30,8 @@ public class HttpDemon implements Runnable {
 		include.add("http://movie.douban.com/people");
 		include.add("http://movie.douban.com/subject");
 		include.add("http://movie.douban.com/review");
-		include.add("http://movie.douban.com/people/annho/collect");
-		include.add("http://movie.douban.com/doulist");
 		include.add("http://movie.douban.com/celebrity");
+		//include.add("http://movie.douban.com/doulist");
 		//include.add("http://www.douban.com/group");
 
 		exclude.add("?type=like#");

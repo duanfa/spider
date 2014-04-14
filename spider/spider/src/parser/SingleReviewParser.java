@@ -12,6 +12,7 @@ import org.jsoup.nodes.Element;
 
 import parser.bean.Reply;
 import parser.bean.Review;
+import parser.bean.Review.ReviewType;
 import spider.Constant;
 
 public class SingleReviewParser {
@@ -24,7 +25,7 @@ public class SingleReviewParser {
 
 	public static Review parseReview(Document doc) throws IOException {
 		Review review = new Review();
-
+		review.setType(ReviewType.LONG);
 		for (Element e : doc.getElementsByAttributeValue("class", "side-back")) {
 			for (Element a : e.getElementsByTag("a")) {
 				int i = 0;
