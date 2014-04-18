@@ -16,7 +16,7 @@ public class Spider {
 		if (b) {
 			ExecutorService cachedThreadPool = Executors.newCachedThreadPool();
 			cachedThreadPool.execute(new UrlSaveDemon());
-			cachedThreadPool.execute(new HttpDemon());
+			cachedThreadPool.execute(new HttpDemon(args[0]));
 			System.out.println("started!!!");
 		} else {
 			String url = "http://movie.douban.com/subject/21941804/?from=showing";

@@ -15,24 +15,8 @@ import java.util.Set;
 
 public class UrlSaveDemon implements Runnable {
 	
-	static Set<String> downloadUrls = new HashSet<String>();
 	static Set<String> usedUrls = new HashSet<String>();
 	static Set<String> illegalUrls = new HashSet<String>();
-	static{
-		downloadUrls = Collections.synchronizedSet(downloadUrls);
-		try {
-			FileInputStream fis = new FileInputStream(Constant.downloadUrlFilePath);
-			BufferedReader br = new BufferedReader(new InputStreamReader(fis));
-			String url = "";
-			while((url=br.readLine())!=null){
-				downloadUrls.add(url);
-			}
-			System.out.println("downloadUrls size:"+downloadUrls.size());
-			br.close();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
 	
 	@Override
 	public void run() {
