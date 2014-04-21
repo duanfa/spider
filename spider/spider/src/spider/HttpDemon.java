@@ -90,6 +90,7 @@ public class HttpDemon implements Runnable {
 			bw.write(html);
 			bw.close();
 			HbaseOperate.saveUrl(url);
+			UrlSaveDemon.usedUrls.add(url);
 			System.out.println("success get url:" + url);
 		} catch (Exception e) {
 			if (e instanceof SocketTimeoutException) {

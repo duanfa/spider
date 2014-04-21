@@ -138,7 +138,7 @@ public class HbaseOperate {
 
 	// main
 	public static void main(String[] args) throws Exception {
-		String url = "http://movie.douban.com/doulist/583122/?start=100&amp;filter=";
+		String url = "http://movie.douban.com/subject/10332552/collections";
 		System.out.println(isRead(url));
 	}
 
