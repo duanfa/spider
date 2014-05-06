@@ -37,6 +37,7 @@ public class HttpDemon implements Runnable {
 
 		exclude.add("?type=like#");
 		exclude.add("remove_comment");
+		exclude.add("http://movie.douban.com/subject_search");
 		exclude.add("www.douban.com/note/tags");
 	}
 
