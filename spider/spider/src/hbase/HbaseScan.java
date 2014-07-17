@@ -36,7 +36,7 @@ public class HbaseScan {
 		// 3、ColumnPrefixFilter用于指定列名前缀值相等
 		// 4、MultipleColumnPrefixFilter和ColumnPrefixFilter行为差不多，但可以指定多个前缀。
 		// 5、QualifierFilter是基于列名的过滤器。
-		// 6、RowFilter
+		// 6、RowFilter 
 		// 7、RegexStringComparator是支持正则表达式的比较器。
 		// 8、SubstringComparator用于检测一个子串是否存在于值中，大小写不敏感。
 
