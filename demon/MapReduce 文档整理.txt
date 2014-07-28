@@ -1,0 +1,160 @@
+
+最新mapreduce文档整理
+
+===================================================微博数据基础部分开始=================================================================
+com.st.mapreduce2.exp 包
+合并所有微博
+	参数：
+	/cal/org_forward  ：需要输入的原始文件
+	hadoop-1:2181     ：zookeeper的host:port
+/usr/local/hadoop-2.0.0-cdh4.0.0/bin/hadoop jar MergeStatus.jar com.st.mapreduce2.exp.MergeStatus  -D mapreduce.job.reduces=3 /cal/org_forward hadoop-1:2181
+
+获取用户最新800条用户信息
+	参数：
+	1：代表从 MergeStatus程序中获取数据拿到最新800条；；如果是0代表从MergeUserLastestStatus的输出中与每天新增微博数据进行合并
+	hadoop-1:2181     ：zookeeper的host:port
+	800： 代表获取用户微博条数
+/usr/local/hadoop-2.0.0-cdh4.0.0/bin/hadoop jar MergeUserLastestStatus.jar com.st.mapreduce2.exp.MergeUserLastestStatus -D mapreduce.job.reduces=4 1 hadoop-1:2181 800
+
+com.st.mapreduce2.cal 包
+计算微博：
+参数：
+	hadoop-1:2181     ：zookeeper的host:port
+/usr/local/hadoop-2.0.0-cdh4.0.0/bin/hadoop jar CalStatus.jar com.st.mapreduce2.cal.CalStatus -D mapreduce.job.reduces=1 hadoop-1:2181
+
+
+程序说明：此部分除MergeStatus 均没有输入输出参数，我们将输入输出参数写到zookeeper，并且0,1表示
+
+====================================================微博基础数据部分结束================================================================
+
+============================================根据微博数据基础部分提取相关信息开始========================================================
+用户到发布终端
+	参数：
+	/cal/calstatus：输入路径 （CalStatus的输出）
+	/cal/userForAgent/：输出路径
+/usr/local/hadoop-2.0.0-cdh4.0.0/bin/hadoop jar ExportUserForAgentFromFile.jar com.st.mapreduce.exp.ExportUserForAgentFromFile -D mapreduce.job.reduces=1 /cal/calstatus /cal/userForAgent/
+	输出格式：
+	uid\t agent1,10 \t agent2,8 .....
+
+发布终端到用户：
+	参数：
+	/data/status/cal_status_1 ：输入路径 （CalStatus的输出）
+	/cal/agentTouUser：输出路径
+/usr/local/hadoop-2.0.0-cdh4.0.0/bin/hadoop jar AgentToUid.jar com.st.mapreduce2.exp.AgentToUid -D mapreduce.job.reduces=4 /data/status/cal_status_1 /cal/agentTouUser
+	输出格式：
+	agent \t uid1 \t uid2 \t uid3 .....
+
+用户转发
+	参数：
+	/cal/mergeuserinfo/calstatus ：输入路径 （CalStatus的输出）
+	/cal/userForForward/ ：输出路径
+/usr/local/hadoop-2.0.0-cdh4.0.0/bin/hadoop jar ExportUserForForwardFromFile.jar com.st.mapreduce.exp.ExportUserForForwardFromFile -D mapreduce.job.reduces=1 /cal/mergeuserinfo/calstatus /cal/userForForward/
+	输出格式：
+	uid \t org_uid1,10 \t org_uid2,5 \t org_uid3,4 ......
+
+用户被转发
+	参数：
+	/exp_out/cal_status_1  ：输入路径 （CalStatus的输出）
+	/cal/temp_forwardForUser/  ：输出路径
+/usr/local/hadoop-2.0.0-cdh4.0.0/bin/hadoop jar ExportForwardForUserFromFile.jar com.st.mapreduce.exp.ExportForwardForUserFromFile -D mapreduce.job.reduces=1 /exp_out/cal_status_1 /cal/temp_forwardForUser/
+	输出格式：
+	org_uid \t uid1,20 \t uid2,10 \t uid3,5 ......
+
+============================================根据微博数据基础部分提取相关信息结束========================================================
+
+
+
+====================================================用户基础信息部分开始=================================================================
+合并用户基本属性
+	参数：
+	/cal/user/ ：数据的输入路径
+	/cal/exp_mergeuserinfo ：数据的输出路径
+/usr/local/hadoop-2.0.0-cdh4.0.0/bin/hadoop jar DistinctUserInfo.jar com.st.mapreduce2.exp.DistinctUserInfo -D mapreduce.job.reduces=2 /cal/user/  /cal/exp_mergeuserinfo
+	
+
+用户到标签
+	参数：
+	/cal/userTag ：数据的输入路径
+	/cal/user2tag ：数据的输出路径
+/usr/local/hadoop-2.0.0-cdh4.0.0/bin/hadoop jar UserToTag.jar com.st.mapreduce2.exp.UserToTag -D mapreduce.job.reduces=1 /cal/userTag /cal/user2tag
+	输出格式：
+	uid \t tag1 \t tag2 \t tag3
+	
+	
+标签到用户g
+	参数：
+	/cal/userTag ：数据的输入
+	/cal/tag2user：数据的输出
+/usr/local/hadoop-2.0.0-cdh4.0.0/bin/hadoop jar TagToUser.jar com.st.mapreduce2.exp.TagToUser -D mapreduce.job.reduces=1 /cal/userTag /cal/tag2user
+	输出格式：
+	tag \t uid1 \t uid2 \t uid3
+	
+	
+
+===================================================用户基础信息部分结束=================================================================
+
+===================================================用户粉丝关注互粉开始=================================================================
+用户---粉丝
+	参数：
+	/scribedata/climb/fans/fans-2014-04-16_00018,/cal/fansfavs ：程序的输入路径（用户：粉丝）
+	/cal/usertofans :程序的输出路径
+/usr/local/hadoop-2.0.0-cdh4.0.0/bin/hadoop jar UserToFavsOrUserToFans.jar com.st.mapreduce2.exp.UserToFavsOrUserToFans -D mapreduce.job.reduces=1 /scribedata/climb/fans/fans-2014-04-16_00018,/cal/fansfavs    /cal/usertofans
+	输出格式
+	uid \t uid1 \t uid2 \t uid3
+	
+
+用户---关注
+ 参数：
+ /cal/orgfansfavs :文件输入路径（用户：关注）
+ /cal/usertofavs : 文件输出路径
+/usr/local/hadoop-2.0.0-cdh4.0.0/bin/hadoop jar UserToFavsOrUserToFans.jar com.st.mapreduce2.exp.UserToFavsOrUserToFans -D mapreduce.job.reduces=1 /cal/orgfansfavs    /cal/usertofavs
+	输出格式
+	uid \t uid1 \t uid2 \t uid3
+
+用户---互粉
+	参数：
+	/cal/usertofans,/cal/usertofavs ：数据的的输入（上两个程序的输出是本次程序的输入）
+	/cal/user_friends：数据的输出
+/usr/local/hadoop-2.0.0-cdh4.0.0/bin/hadoop jar ExportUserFriendFromFile.jar com.st.mapreduce.exp.ExportUserFriendFromFile -D mapreduce.job.reduces=1 /cal/usertofans,/cal/usertofavs /cal/user_friends
+	输出格式
+	uid \t uid1 \t uid2 \t uid3
+	
+===================================================用户粉丝关注互粉结束=================================================================
+
+=====================================================用户数据导入部分===================================================================
+程序说明：我们需要导入的数据总共分为四类，将其分别导入到leveldb中，再将leveldb中的文件数据拷贝到对应的ssdb数据库
+1:导入计算微博数据
+2:导入用户信息基本数据
+3：导入用户pr信息
+4：导入用户真假度信息
+
+此导入项目在DataImport 工程中
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

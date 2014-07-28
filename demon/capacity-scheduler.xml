@@ -1,0 +1,130 @@
+<configuration>
+	<!--最多可同时处于等待和运行状态的应用程序数目 -->
+	<property>
+		<name>yarn.scheduler.capacity.maximum-applications</name>
+		<value>10000</value>
+		<description>
+			Maximum number of applications that can be pending and running.
+		</description>
+	</property>
+	<!--集群中可用于运行application master的资源比例上限，这通常用于限制并发运行的应用程序数目。 -->
+	<property>
+		<name>yarn.scheduler.capacity.maximum-am-resource-percent</name>
+		<value>0.1</value>
+		<description>
+			Maximum percent of resources in the cluster which can be used to run
+			application masters i.e. controls number of concurrent running
+			applications.
+		</description>
+	</property>
+	<!--root 队列的所有子队列 -->
+	<property>
+		<name>yarn.scheduler.capacity.root.queues</name>
+		<value>high,normal,low</value>
+		<description>
+			The queues at the this level (root is the root queue).
+		</description>
+	</property>
+	<!--所有队列总容量 100 -->
+	<property>
+		<name>yarn.scheduler.capacity.root.capacity</name>
+		<value>100</value>
+		<description>
+			The total capacity as a percentage out of 100 for this queue.
+			If it has child queues then this includes their capacity as well.
+			The child queues capacity should add up to their parent queue's capacity
+			or less.
+		</description>
+	</property>
+
+	<!--队列优先级 还是对队列中的任务有优先级限定 -->
+	<property>
+		<name>mapred.capacity-scheduler.queue.high.supports-priority</name>
+		<value>true</value>
+	</property>
+
+	<!--队列的容量 -->
+	<property>
+		<name>yarn.scheduler.capacity.root.high.capacity</name>
+		<value>50</value>
+		<description>Default queue target capacity.</description>
+	</property>
+	<!--队列的容量 -->
+	<property>
+		<name>yarn.scheduler.capacity.root.normal.capacity</name>
+		<value>30</value>
+		<description>Default queue target capacity.</description>
+	</property>
+	<!--队列的容量 -->
+	<property>
+		<name>yarn.scheduler.capacity.root.low.capacity</name>
+		<value>20</value>
+		<description>Default queue target capacity.</description>
+	</property>
+
+	<!-- ============================================================================= -->
+	<!--最大可使用的资源上线 -->
+	<property>
+		<name>yarn.scheduler.capacity.root.high.maximum-capacity</name>
+		<value>100</value>
+		<description>
+			The maximum capacity of the normal queue.
+		</description>
+	</property>
+
+	<!--最大可使用的资源上线 -->
+	<property>
+		<name>yarn.scheduler.capacity.root.normal.maximum-capacity</name>
+		<value>100</value>
+		<description>
+			The maximum capacity of the normal queue.
+		</description>
+	</property>
+
+	<!--最大可使用的资源上线 -->
+	<property>
+		<name>yarn.scheduler.capacity.root.low.maximum-capacity</name>
+		<value>100</value>
+		<description>
+			The maximum capacity of the normal queue.
+		</description>
+	</property>
+
+	<!--4个或更多用户时候不会超过25 -->
+	<property>
+		<name>yarn.scheduler.capacity.root.high.minimum-user-limit-percent
+		</name>
+		<value>25</value>
+	</property>
+
+	<!--4个或更多用户时候不会超过25 -->
+	<property>
+		<name>yarn.scheduler.capacity.root.normal.minimum-user-limit-percent
+		</name>
+		<value>25</value>
+	</property>
+
+	<!--4个或更多用户时候不会超过25 -->
+	<property>
+		<name>yarn.scheduler.capacity.root.low.minimum-user-limit-percent
+		</name>
+		<value>25</value>
+	</property>
+
+	<!-- 队列容量中的多数可以配置为允许单用户获取更多的资源。默认的，这个设为 1 ， 以保证单个用户永远不会占用超过队列配置容量，而不管无论集群怎样闲置。此值声明为一个浮点数。 -->
+	<property>
+		<name>yarn.scheduler.capacity.root.high.user-limit-factor</name>
+		<value>2</value>
+	</property>
+
+	<property>
+		<name>yarn.scheduler.capacity.root.normal.user-limit-factor</name>
+		<value>3</value>
+	</property>
+
+	<property>
+		<name>yarn.scheduler.capacity.root.low.user-limit-factor</name>
+		<value>5</value>
+	</property>
+
+</configuration>
