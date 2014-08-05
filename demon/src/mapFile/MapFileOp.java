@@ -17,9 +17,13 @@ public class MapFileOp {
 		FileSystem fs = FileSystem.get(uri, conf);
 		MapFile.Writer writer = null;
 		writer = new MapFile.Writer(conf, fs, uri.getPath(), Text.class, Text.class);
-
 		//通过writer向文档中写入记录  
 		writer.append(new Text("key"), new Text("value"));
+		writer.append(new Text("key2"), new Text("value2.0"));
+		writer.append(new Text("key2"), new Text("value2.1"));
+		writer.append(new Text("key2"), new Text("value2.2"));
+		writer.append(new Text("key3"), new Text("value3"));
+		writer.append(new Text("key4"), new Text("value4"));
 		IOUtils.closeStream(writer);//关闭write流  
 	}
 
@@ -31,8 +35,16 @@ public class MapFileOp {
 		reader = new MapFile.Reader(fs, uri.getPath(), conf);
 
 		//通过writer向文档中写入记录  
-		Text key = new Text();
+		Text key = new Text("key2");
 		Text value = new Text();
+		while (reader.next(key, value)) {
+			System.out.println(key);
+			System.out.println(value);
+		}
+		System.out.println("--------------------");
+		key = new Text("key2");
+		reader.get(key, value);
+		System.out.println(value);
 		while (reader.next(key, value)) {
 			System.out.println(key);
 			System.out.println(value);

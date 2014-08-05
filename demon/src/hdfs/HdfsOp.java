@@ -20,7 +20,7 @@ public class HdfsOp {
 
 	private static void readFromHdfs() throws FileNotFoundException,
 			IOException {
-		String dst = "hdfs://hadoop-1:9000";
+		String dst = "hdfs://offline:9000";
 		Configuration conf = new Configuration();
 
 		/*conf.set("fs.hdfs.impl",
@@ -31,7 +31,8 @@ public class HdfsOp {
 		FileSystem fs = FileSystem.get(URI.create(dst), conf);
 		FileStatus[] stats = fs.listStatus(new Path("/"));
 		System.out.println(stats.length);
-		//FSDataInputStream hdfsInStream = fs.open(new Path(dst));
+		FSDataInputStream hdfsInStream = fs.open(new Path(dst));
+		hdfsInStream.skip(n);
 		fs.close();
 	}
 }
