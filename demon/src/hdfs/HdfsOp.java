@@ -32,7 +32,7 @@ public class HdfsOp {
 		FileStatus[] stats = fs.listStatus(new Path("/"));
 		System.out.println(stats.length);
 		FSDataInputStream hdfsInStream = fs.open(new Path(dst));
-		hdfsInStream.skip(n);
+		hdfsInStream.skip(100);
 		fs.close();
 	}
 }

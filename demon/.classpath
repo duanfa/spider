@@ -16,7 +16,6 @@
 	<classpathentry kind="lib" path="lib/apache-solr-test-framework-3.6.2.jar"/>
 	<classpathentry kind="lib" path="lib/apache-solr-uima-3.6.2.jar"/>
 	<classpathentry kind="lib" path="lib/apache-solr-velocity-3.6.2.jar"/>
-	<classpathentry kind="lib" path="lib/avro-1.5.4.jar"/>
 	<classpathentry kind="lib" path="lib/c3p0-0.9.1.2.jar"/>
 	<classpathentry kind="lib" path="lib/cglib-nodep-2.2.2.jar"/>
 	<classpathentry kind="lib" path="lib/climblogserver.jar"/>
@@ -91,5 +90,13 @@
 	<classpathentry kind="lib" path="lib/tf-idf/je-analysis-1[1].4.0-5251.jar"/>
 	<classpathentry kind="lib" path="lib/tf-idf/lucene-core-2.2.0.jar"/>
 	<classpathentry kind="lib" path="lib/tf-idf/IKAnalyzer2012FF_u1.jar"/>
+	<classpathentry kind="lib" path="lib/kafka_2.8.0-0.8.0.jar"/>
+	<classpathentry kind="lib" path="lib/scala-library.jar"/>
+	<classpathentry kind="lib" path="lib/metrics-core-2.2.0.jar"/>
+	<classpathentry kind="lib" path="lib/zkclient-0.3.jar"/>
+	<classpathentry kind="lib" path="lib/hadoop-consumer-0.8.0-javadoc.jar"/>
+	<classpathentry kind="lib" path="lib/avro-1.7.7.jar"/>
+	<classpathentry kind="lib" path="lib/avro-compiler-1.7.7.jar"/>
+	<classpathentry kind="lib" path="lib/avro-tools-1.7.7.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
