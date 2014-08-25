@@ -27,18 +27,6 @@ public class KafkaProducer {
 		KeyedMessage<String, String> data = new KeyedMessage<String, String>(topic_name, ip, msg);
 		producer.send(data);
 		
-		msg = "{\"name\":\"xiaocao\",\"timestamp\":\"" + s.format(new Date()) + "\"}";
-		data = new KeyedMessage<String, String>(topic_name, ip, msg);
-		producer.send(data);
-		
-		msg = "{\"name\":\"xiaozhu\",\"timestamp\":\"" + s.format(new Date()) + "\"}";
-		data = new KeyedMessage<String, String>(topic_name, ip, msg);
-		producer.send(data);
-		
-		msg = "{\"name\":\"xiaopan\",\"timestamp\":\"" + s.format(new Date()) + "\"}";
-		data = new KeyedMessage<String, String>(topic_name, ip, msg);
-		producer.send(data);
-		
 		producer.close();
 	}
 }

@@ -21,7 +21,7 @@ public class Test {
 		User user3 = User.newBuilder().setName("Charlie").setFavoriteColor("blue").setFavoriteNumber(100).build();
 		// Serialize user1, user2 and user3 to disk
 		File file = new File("src/avro/users.avro");
-		DatumWriter<User> userDatumWriter = new SpecificDatumWriter<User>(User.class);
+		DatumWriter<User> userDatumWriter = new SpecificDatumWriter<User>(User.SCHEMA$);
 		DataFileWriter<User> dataFileWriter = new DataFileWriter<User>(userDatumWriter);
 		try {
 			dataFileWriter.create(user1.getSchema(), new File("src/avro/users.avro"));
@@ -32,7 +32,7 @@ public class Test {
 		} catch (IOException e) {
 		}
 		// Deserialize Users from dist
-		DatumReader<User> userDatumReader = new SpecificDatumReader<User>(User.class);
+		DatumReader<User> userDatumReader = new SpecificDatumReader<User>(User.SCHEMA$);
 		DataFileReader<User> dataFileReader = null;
 		try {
 			dataFileReader = new DataFileReader<User>(file, userDatumReader);
