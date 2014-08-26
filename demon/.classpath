@@ -76,7 +76,6 @@
 	<classpathentry kind="lib" path="lib/objenesis-1.2.jar"/>
 	<classpathentry kind="lib" path="lib/powermock-easymock-1.5.1-full.jar"/>
 	<classpathentry kind="lib" path="lib/powermock-mockito-1.5.1-full.jar"/>
-	<classpathentry kind="lib" path="lib/protobuf-java-2.4.0a.jar"/>
 	<classpathentry kind="lib" path="lib/slf4j-api-1.5.8.jar"/>
 	<classpathentry kind="lib" path="lib/slf4j-log4j12-1.5.8.jar"/>
 	<classpathentry kind="lib" path="lib/sqRuleEngine0.1.jar"/>
@@ -100,5 +99,6 @@
 	<classpathentry kind="lib" path="lib/avro-tools-1.7.7.jar"/>
 	<classpathentry kind="lib" path="lib/commons-io-2.4-sources.jar"/>
 	<classpathentry kind="lib" path="lib/commons-io-2.4.jar"/>
+	<classpathentry kind="lib" path="lib/protobuf-java-2.5.0.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
