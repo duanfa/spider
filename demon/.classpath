@@ -88,7 +88,6 @@
 	<classpathentry kind="lib" path="lib/hbase-0.94.8.jar"/>
 	<classpathentry kind="lib" path="lib/tf-idf/je-analysis-1[1].4.0-5251.jar"/>
 	<classpathentry kind="lib" path="lib/tf-idf/lucene-core-2.2.0.jar"/>
-	<classpathentry kind="lib" path="lib/tf-idf/IKAnalyzer2012FF_u1.jar"/>
 	<classpathentry kind="lib" path="lib/kafka_2.8.0-0.8.0.jar"/>
 	<classpathentry kind="lib" path="lib/scala-library.jar"/>
 	<classpathentry kind="lib" path="lib/metrics-core-2.2.0.jar"/>
@@ -100,5 +99,9 @@
 	<classpathentry kind="lib" path="lib/commons-io-2.4-sources.jar"/>
 	<classpathentry kind="lib" path="lib/commons-io-2.4.jar"/>
 	<classpathentry kind="lib" path="lib/protobuf-java-2.5.0.jar"/>
+	<classpathentry kind="lib" path="lib/ssdb/ssdb4j-8.8-javadoc.jar"/>
+	<classpathentry kind="lib" path="lib/ssdb/ssdb4j-8.8-sources.jar"/>
+	<classpathentry kind="lib" path="lib/ssdb/ssdb4j-8.8.jar" sourcepath="lib/ssdb/ssdb4j-8.8-sources.jar"/>
+	<classpathentry kind="lib" path="lib/tf-idf/IKAnalyzer2012.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

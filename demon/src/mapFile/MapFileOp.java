@@ -6,6 +6,7 @@ import java.net.URI;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.io.IOUtils;
+import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.MapFile;
 import org.apache.hadoop.io.Text;
 
@@ -29,31 +30,24 @@ public class MapFileOp {
 
 	private static void read() throws IOException {
 		Configuration conf = new Configuration();
-		URI uri = URI.create("file:///root/mapFile.map");
+		URI uri = URI.create("hdfs://master:9000/user/duanfa/mapFile0");
 		FileSystem fs = FileSystem.get(uri, conf);
 		MapFile.Reader reader = null;
 		reader = new MapFile.Reader(fs, uri.getPath(), conf);
 
 		//通过writer向文档中写入记录  
-		Text key = new Text("key2");
+		LongWritable key = new LongWritable(1981121952);
 		Text value = new Text();
 		while (reader.next(key, value)) {
 			System.out.println(key);
 			System.out.println(value);
 		}
 		System.out.println("--------------------");
-		key = new Text("key2");
-		reader.get(key, value);
-		System.out.println(value);
-		while (reader.next(key, value)) {
-			System.out.println(key);
-			System.out.println(value);
-		}
 		IOUtils.closeStream(reader);//关闭write流  
 	}
 
 	public static void main(String[] args) throws IOException {
-		write();
+		//write();
 		read();
 	}
 }
